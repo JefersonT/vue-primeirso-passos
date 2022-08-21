@@ -46,6 +46,24 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
         Aprendemos a utilizar o $emit para criar eventos utilizados na comunicação entre componentes.
     - Ouvir eventos customizados.
         Aprendemos que ouvir eventos customizados é tão simples quanto ouvir eventos HTML, como o click por exemplo.
+3. Trabalhando com listas
+    Nessa aula, você aprendeu:
+    - Renderizar listas com o v-for;
+        Utilizamos um mecanismo de repetição para renderizar N vezes uma tarefa, onde N é o tamanho da lista. Isso faz com que nossa lista seja dinâmica.
+    - Condicionais com v-if / v-else;
+        Aprendemos como esconder ou exibir um componente, dado um estado específico utilizando a diretiva v-if.
+    - Fallback de conteúdo com o operador || (OU);
+        Utilizamos o operador OU para exibir um texto padrão, caso a tarefa não possua uma descrição.
+    - Slots.
+        Aprendemos a lidar com o slot quando criamos um componente para representar o Box. Assim, conseguimos exibir os elementos filhos dentro do nosso Box.
+4. Estilos estlosos
+   Nessa aula, você aprendeu:
+   - Uso de variáveis CSS para temas (claro/escuro);
+     - Utilizando essas variáveis, nós podemos facilmente controlar o tema do nosso Alura Tracker, alterando a cor de fundo e a cor do texto de acordo com o tema aplicado.
+   - Adicionar e remover classes baseado num estado do componente;
+     - Aprendemos a adicionar ou remover classes, condicionalmente utilizando a diretiva :class.
+   - Estilos via objetos.
+     - Aprendemos uma nova forma de aplicar estilos a um elemento, utilizando um objeto que representa as propriedades e seus valores.
 
 
 
