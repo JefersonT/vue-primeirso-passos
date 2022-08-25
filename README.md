@@ -24,8 +24,8 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Observações das Aulas
+### Vue3: explorando o framework
 1. Iniciando o Alura Tracker
-    Nessa aula, você aprendeu:
     - Iniciar um projeto novo, utilizando TypeScript e Vue3;
         Aprendemos como instalar e utilizar o vue cli para construir um novo projeto, customizando inclusive as dependências que teremos.
     - Importar o Bulma;
@@ -37,7 +37,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     - Trabalhar com intervalos.
         O setInterval é perfeito para nosso cenário, de incrementar o tempo decorrido a cada segundo.
 2. Compondo componentes
-    Nessa aula, você aprendeu:
     - Refatorar componentes em componentes menores;
         Vimos que é muito fácil atribuir funcionalidades demais a um componente existente. Quando isso aconteceu, aprendemos a refatorar o componente em componentes menores e mais coesos.
     - Formatar a exibição de X segundos em HH:mm:ss;
@@ -47,7 +46,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     - Ouvir eventos customizados.
         Aprendemos que ouvir eventos customizados é tão simples quanto ouvir eventos HTML, como o click por exemplo.
 3. Trabalhando com listas
-    Nessa aula, você aprendeu:
     - Renderizar listas com o v-for;
         Utilizamos um mecanismo de repetição para renderizar N vezes uma tarefa, onde N é o tamanho da lista. Isso faz com que nossa lista seja dinâmica.
     - Condicionais com v-if / v-else;
@@ -57,7 +55,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
     - Slots.
         Aprendemos a lidar com o slot quando criamos um componente para representar o Box. Assim, conseguimos exibir os elementos filhos dentro do nosso Box.
 4. Estilos estlosos
-   Nessa aula, você aprendeu:
    - Uso de variáveis CSS para temas (claro/escuro);
      - Utilizando essas variáveis, nós podemos facilmente controlar o tema do nosso Alura Tracker, alterando a cor de fundo e a cor do texto de acordo com o tema aplicado.
    - Adicionar e remover classes baseado num estado do componente;
@@ -65,5 +62,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
    - Estilos via objetos.
      - Aprendemos uma nova forma de aplicar estilos a um elemento, utilizando um objeto que representa as propriedades e seus valores.
 
-
+### Vue3: avançando no framework
+1. Bem começado, metade feito
+    - Instalar e configurar o vue-router num projeto existente;
+      - Vimos que o Vue é um framework progressivo e não vem com roteamento por padrão.
+    - Configurar o arquivo de rotas;
+      - Criamos uma lista de objetos, indicando qual componente será responsável por qual rota
 
