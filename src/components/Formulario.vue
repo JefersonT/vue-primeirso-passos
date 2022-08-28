@@ -17,7 +17,7 @@
         <div class="select">
           <select v-model="idProjeto">
             <option value="">Selecione o projeto</option>
-            <option :value="projetos.id"
+            <option :value="projeto.id"
             v-for="projeto in projetos"
             :key="projeto.id">
             {{ projeto.nome }}
