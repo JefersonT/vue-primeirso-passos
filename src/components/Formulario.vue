@@ -17,15 +17,17 @@
         <div class="select">
           <select v-model="idProjeto">
             <option value="">Selecione o projeto</option>
-            <option :value="projeto.id"
-            v-for="projeto in projetos"
-            :key="projeto.id">
-            {{ projeto.nome }}
+            <option
+              :value="projeto.id"
+              v-for="projeto in projetos"
+              :key="projeto.id"
+            >
+              {{ projeto.nome }}
             </option>
           </select>
         </div>
       </div>
-      <div v-if="idProjeto !=''" class="column">
+      <div class="column">
         <temporizador @ao-temporizador-finalizado="finalizarTarefa" />
       </div>
     </div>
@@ -46,8 +48,8 @@ export default defineComponent({
   },
   data() {
     return {
-      descricao: "",
-      idProjeto: ''
+      descricao: '',
+      idProjeto: '',
     };
   },
   methods: {
@@ -55,21 +57,21 @@ export default defineComponent({
       this.$emit("aoSalvarTarefa", {
         duracaoEmSegundos: tempoDecorrido,
         descricao: this.descricao,
-        projeto: this.projetos.find(proj => proj.id == this.idProjeto)
+        projeto: this.projetos.find(proj => proj.id == this.idProjeto),
       });
-      this.descricao = "";
+      this.descricao = '';
     },
   },
   setup() {
     const store = useStore(key);
     return {
-      projetos: computed(() => store.state.projetos),
-    };
+      projetos: computed(() => store.state.projetos)
+    }
   },
 });
 </script>
 
-<style>
+<style scoped>
 .formulario {
   color: var(--texto-primario);
   background-color: var(--bg-primario);

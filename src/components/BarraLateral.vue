@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1>
-      <img src="../assets/logo.png" alt="" />
+      <img alt="Alura Tracker" src="../assets/logo.png" />
     </h1>
     <div class="has-text-centered">
       <button class="button" @click="alterarTema">
@@ -13,13 +13,13 @@
         <li>
           <router-link to="/" class="link">
             <i class="fas fa-tasks"></i>
-            tarefas
+            Tarefas
           </router-link>
         </li>
         <li>
           <router-link to="/projetos" class="link">
             <i class="fas fa-project-diagram"></i>
-            projetos
+            Projetos
           </router-link>
         </li>
       </ul>
@@ -57,6 +57,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+h1 {
+  text-align: center;
+}
 header {
   padding: 2rem;
   background: #0d3b66;

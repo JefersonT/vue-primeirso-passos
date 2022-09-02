@@ -1,11 +1,11 @@
 <template>
   <BoxVue>
     <div class="columns">
-      <div class="column is-4">
+      <div class="column is-5">
         {{ tarefa.descricao || "Tarefa sem descricão" }}
       </div>
-      <div class="column is-4">
-        {{ tarefa.projeto.nome || "Sem Projeto" }}
+      <div class="column">
+        {{ nomeDoProjeto || "Sem Projeto"}}
       </div>
       <div class="column">
         <Cronometro :tempo-em-segundos="tarefa.duracaoEmSegundos" />
@@ -36,6 +36,18 @@ import { EXCLUIR_TAREFA } from "@/store/tipo-mutacoes";
 
 export default defineComponent({
   name: "TarefaVue",
+  data() {
+    return {
+      nomeDoProjeto: "",
+      projeto: this.tarefa.projeto
+    };
+  },
+  mounted (){
+    if(this.projeto){
+      const projeto = this.store.state.projetos.find(proj => proj.id == this.projeto.id)
+      this.nomeDoProjeto = projeto?.nome || ''
+    }
+  },
   methods: {
     excluir(id: string) {
       this.store.commit(EXCLUIR_TAREFA, id);
