@@ -71,4 +71,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 2. Gerenciando estado
    - Instalar e configurar o vue-router num projeto existente:
      - Vimos que o Vue é um framework progressivo e não vem com uma biblioteca de roteamento instalada por padrão. Logo, instalamos e configuramos o vue-router para gerir nossas rotas e transformar nossa aplicação numa verdadeira SPA.
+3. Evoluindo o Alura Tracker
+   - Manipular o estado;
+     - Inserimos, editamos, excluímos e listamos os projetos.
+   - Rotas aninhadas;
+     - Agrupar rotas dentro de um mesmo contexto.
+   - Tipos de mutações;
+     - Extraímos os nomes das mutações para constantes.
+
 

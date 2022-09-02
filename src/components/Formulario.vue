@@ -25,7 +25,7 @@
           </select>
         </div>
       </div>
-      <div class="column">
+      <div v-if="idProjeto !=''" class="column">
         <temporizador @ao-temporizador-finalizado="finalizarTarefa" />
       </div>
     </div>
