@@ -78,5 +78,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
      - Agrupar rotas dentro de um mesmo contexto.
    - Tipos de mutações;
      - Extraímos os nomes das mutações para constantes.
+4. Notificando os usuários
+   - Controlar o estado;
+     - Desenvolvendo a lista de notificações.
+   - Combinar o Vue e o Bulma;
+     - Utilizando componentes visuais prontos do Bulma e cuidado do comportamento utilizando o Vue.
+
 
 

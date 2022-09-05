@@ -13,7 +13,8 @@ import Tarefa from "../components/Tarefa.vue";
 import ITarefa from "../interfaces/ITarefa";
 import Box from "../components/Box.vue";
 import { useStore } from "@/store";
-import { ADICIONA_TAREFA } from "@/store/tipo-mutacoes";
+import { ADICIONA_TAREFA, NOTIFICAR } from "@/store/tipo-mutacoes";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
 
 export default defineComponent({
   name: "App",
@@ -33,6 +34,11 @@ export default defineComponent({
   methods: {
     salvarTarefa(tarefa: ITarefa) : void {
       this.store.commit(ADICIONA_TAREFA, tarefa);
+      this.store.commit(NOTIFICAR, {
+        titulo: 'Nova Tarefa foi salva',
+        texto: 'Pronto! Sua tarefa já está registrada.',
+        tipo: TipoNotificacao.SUCESSO
+      })
     },
   },
   setup() {
