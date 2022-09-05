@@ -83,6 +83,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
      - Desenvolvendo a lista de notificações.
    - Combinar o Vue e o Bulma;
      - Utilizando componentes visuais prontos do Bulma e cuidado do comportamento utilizando o Vue.
-
-
-
+5. Compilando a aplicação
+     - Mixins;
+       - Como reaproveitar código e qual a fragilidade dessa técnica.
+     - Composition API;
+       - Como reaproveitar código de uma forma mais coesa e legível.
+     - Computed - debugging;
+       - Como depurar código de propriedades computadas.

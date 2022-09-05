@@ -1,11 +1,11 @@
 <template>
   <BoxVue>
     <div class="columns">
-      <div class="column is-5">
+      <div class="column is-4">
         {{ tarefa.descricao || "Tarefa sem descricão" }}
       </div>
-      <div class="column">
-        {{ nomeDoProjeto || "Sem Projeto"}}
+      <div class="column is-3">
+        {{ nomeDoProjeto || "Sem Projeto" }}
       </div>
       <div class="column">
         <Cronometro :tempo-em-segundos="tarefa.duracaoEmSegundos" />
@@ -39,13 +39,15 @@ export default defineComponent({
   data() {
     return {
       nomeDoProjeto: "",
-      projeto: this.tarefa.projeto
+      projeto: this.tarefa.projeto,
     };
   },
-  mounted (){
-    if(this.projeto){
-      const projeto = this.store.state.projetos.find(proj => proj.id == this.projeto.id)
-      this.nomeDoProjeto = projeto?.nome || ''
+  mounted() {
+    if (this.projeto) {
+      const projeto = this.store.state.projetos.find(
+        (proj) => proj.id == this.projeto.id
+      );
+      this.nomeDoProjeto = projeto?.nome || "";
     }
   },
   methods: {
