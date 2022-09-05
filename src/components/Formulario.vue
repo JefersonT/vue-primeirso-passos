@@ -36,8 +36,8 @@
 
 <script lang="ts">
 import { TipoNotificacao } from "@/interfaces/INotificacao";
+import { notificacaoMixin } from "@/mixins/notificar";
 import { key } from "@/store";
-import { NOTIFICAR } from "@/store/tipo-mutacoes";
 import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 import Temporizador from "./Temporizador.vue";
@@ -48,6 +48,7 @@ export default defineComponent({
   components: {
     Temporizador,
   },
+  mixins: [notificacaoMixin],
   data() {
     return {
       descricao: '',
@@ -58,11 +59,7 @@ export default defineComponent({
     finalizarTarefa(tempoDecorrido: number): void {
       const projeto = this.projetos.find((p) => p.id == this.idProjeto);
       if (!projeto) {
-        this.store.commit(NOTIFICAR, {
-          titulo: 'Ops!',
-          texto: "Selecione um projeto antes de finalizar a tarefa!",
-          tipo: TipoNotificacao.FALHA,
-        });
+        this.notificar(TipoNotificacao.FALHA,'Ops!',"Selecione um projeto antes de finalizar a tarefa!")
         return;
       }
       this.$emit("aoSalvarTarefa", {
