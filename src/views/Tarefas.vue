@@ -15,7 +15,7 @@ import Box from "../components/Box.vue";
 import { useStore } from "@/store";
 import { ADICIONA_TAREFA } from "@/store/tipo-mutacoes";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
-import { notificacaoMixin } from "@/mixins/notificar";
+import notificador from "@/hooks/notificador";
 
 export default defineComponent({
   name: "App",
@@ -24,7 +24,6 @@ export default defineComponent({
     Tarefa,
     Box,
   },
-  mixins: [notificacaoMixin],
   data() {
     return {};
   },
@@ -41,9 +40,11 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const { notificar } = notificador()
     return {
       tarefas: computed(() => store.state.tarefas),
       store,
+      notificar
     };
   },
 });

@@ -35,8 +35,8 @@
 </template>
 
 <script lang="ts">
+import notificador from "@/hooks/notificador";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
-import { notificacaoMixin } from "@/mixins/notificar";
 import { key } from "@/store";
 import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
@@ -48,7 +48,6 @@ export default defineComponent({
   components: {
     Temporizador,
   },
-  mixins: [notificacaoMixin],
   data() {
     return {
       descricao: '',
@@ -72,9 +71,11 @@ export default defineComponent({
   },
   setup() {
     const store = useStore(key);
+    const {notificar} = notificador()
     return {
       projetos: computed(() => store.state.projetos),
-      store
+      store,
+      notificar
     }
   },
 });
