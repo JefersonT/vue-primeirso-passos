@@ -90,3 +90,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
        - Como reaproveitar código de uma forma mais coesa e legível.
      - Computed - debugging;
        - Como depurar código de propriedades computadas.
+### Vue3: composition API e Vuex
+1. Hora da API
+   - Configurar um mock de API Rest;
+     - Utilizando o json server, conseguimos levantar uma API utilizando o arquivo db.json.
+   - Instalar e configurar o axios;
+     - Adicionamos a dependência e configuramos uma única instância para toda a aplicação.
+   - Implementar ações, responsáveis pelo processamento assíncrono;
+     - Diferente das mutations, as actions podem ser assíncronas, e não devem modificar o estado diretamente. Por isso, quando o processamento termina, nós fazemos o commit para atualizar o estado.
+   - Despachar ações a partir dos componentes;
+     - Podemos despachar as actions a partir de qualquer componente com acesso à store.

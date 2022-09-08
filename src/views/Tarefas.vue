@@ -13,9 +13,13 @@ import Tarefa from "../components/Tarefa.vue";
 import ITarefa from "../interfaces/ITarefa";
 import Box from "../components/Box.vue";
 import { useStore } from "@/store";
-import { ADICIONA_TAREFA } from "@/store/tipo-mutacoes";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import notificador from "@/hooks/notificador";
+import {
+  CADASTRAR_TAREFA,
+  OBTER_PROJETOS,
+  OBTER_TAREFAS,
+} from "@/store/tipo-acoes";
 
 export default defineComponent({
   name: "App",
@@ -33,18 +37,26 @@ export default defineComponent({
     },
   },
   methods: {
-    salvarTarefa(tarefa: ITarefa) : void {
-      this.store.commit(ADICIONA_TAREFA, tarefa);
-      this.notificar(TipoNotificacao.SUCESSO,'Excelente!',"Sua tarefa já está registrada.")
+    salvarTarefa(tarefa: ITarefa): void {
+      this.store.dispatch(CADASTRAR_TAREFA, tarefa).then(() => {
+        this.notificar(
+          TipoNotificacao.SUCESSO,
+          "Excelente!",
+          "Sua tarefa já está registrada."
+        );
+      });
     },
   },
   setup() {
     const store = useStore();
-    const { notificar } = notificador()
+    const { notificar } = notificador();
+    store.dispatch(OBTER_PROJETOS);
+    store.dispatch(OBTER_TAREFAS);
+
     return {
       tarefas: computed(() => store.state.tarefas),
       store,
-      notificar
+      notificar,
     };
   },
 });

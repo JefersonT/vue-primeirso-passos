@@ -32,7 +32,9 @@ import { useStore } from "@/store";
 import { defineComponent, PropType } from "vue";
 import Cronometro from "./Cronometro.vue";
 import BoxVue from "./Box.vue";
-import { EXCLUIR_TAREFA } from "@/store/tipo-mutacoes";
+import { REMOVER_TAREFA } from "@/store/tipo-acoes";
+import notificador from "@/hooks/notificador";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
 
 export default defineComponent({
   name: "TarefaVue",
@@ -52,7 +54,13 @@ export default defineComponent({
   },
   methods: {
     excluir(id: string) {
-      this.store.commit(EXCLUIR_TAREFA, id);
+      this.store.dispatch(REMOVER_TAREFA, id).then(() => {
+        this.notificar(
+          TipoNotificacao.SUCESSO,
+          "Excelente!",
+          "Tarefa removida com sucesso."
+        );
+      });
     },
   },
   components: {
@@ -67,8 +75,10 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const { notificar } = notificador();
     return {
       store,
+      notificar,
     };
   },
 });

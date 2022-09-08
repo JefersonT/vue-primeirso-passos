@@ -36,8 +36,10 @@
 </template>
 
 <script lang="ts">
+import notificador from "@/hooks/notificador";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
 import { key } from "@/store";
-import { EDITA_TAREFA } from "@/store/tipo-mutacoes";
+import { ALTERAR_TAREFA } from "@/store/tipo-acoes";
 import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 
@@ -68,21 +70,30 @@ export default defineComponent({
   methods: {
     salvar() {
       const tarefa = this.store.state.tarefas.find((tar) => tar.id == this.id);
-      this.store.commit(EDITA_TAREFA, {
-        id: this.id,
-        descricao: this.descricao,
-        duracaoEmSegundos: tarefa?.duracaoEmSegundos,
-        projeto: this.projetos.find((proj) => proj.id == this.idProjeto),
-      });
-
-      this.$router.push("/");
+      this.store
+        .dispatch(ALTERAR_TAREFA, {
+          id: this.id,
+          descricao: this.descricao,
+          duracaoEmSegundos: tarefa?.duracaoEmSegundos,
+          projeto: this.projetos.find((proj) => proj.id == this.idProjeto),
+        })
+        .then(() => {
+          this.notificar(
+            TipoNotificacao.SUCESSO,
+            "Excelente!",
+            "Tarefa salva com sucesso."
+          );
+          this.$router.push("/");
+        });
     },
   },
   setup() {
     const store = useStore(key);
+    const { notificar } = notificador();
     return {
       projetos: computed(() => store.state.projetos),
       store,
+      notificar,
     };
   },
 });

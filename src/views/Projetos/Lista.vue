@@ -37,22 +37,34 @@
 </template>
   
   <script lang="ts">
+import notificador from "@/hooks/notificador";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
 import { useStore } from "@/store";
-import { EXCLUIR_PROJETO } from "@/store/tipo-mutacoes";
+import { OBTER_PROJETOS, REMOVER_PROJETO } from "@/store/tipo-acoes";
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "ListaVue",
   methods: {
     excluir(id: string) {
-      this.store.commit(EXCLUIR_PROJETO, id);
+      this.store.dispatch(REMOVER_PROJETO, id).then(() => {
+        this.notificar(
+          TipoNotificacao.SUCESSO,
+          "Excelente!",
+          "Projeto removido com sucesso."
+        );
+      });
     },
   },
   setup() {
     const store = useStore();
+    const { notificar } = notificador();
+    store.dispatch(OBTER_PROJETOS);
+
     return {
       projetos: computed(() => store.state.projetos),
       store,
+      notificar,
     };
   },
 });
