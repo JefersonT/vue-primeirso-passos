@@ -100,3 +100,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
      - Diferente das mutations, as actions podem ser assíncronas, e não devem modificar o estado diretamente. Por isso, quando o processamento termina, nós fazemos o commit para atualizar o estado.
    - Despachar ações a partir dos componentes;
      - Podemos despachar as actions a partir de qualquer componente com acesso à store.
+2. Organizando a store
+   - A importância de manter a saúde do projeto;
+     - Sempre que identificamos um problema conhecido, como a store com código demais, precisamos ter uma arquitetura alternativa para que o projeto possa ser mantido muito muito mais tempo antes de virar um legado difícil de trabalhar. 
+   - Promises e async/await;
+     - Vimos na atividade de alternativas que temos outra forma de lidar com métodos assíncronos.

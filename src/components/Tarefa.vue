@@ -11,11 +11,11 @@
         <Cronometro :tempo-em-segundos="tarefa.duracaoEmSegundos" />
       </div>
       <div class="column">
-        <router-link :to="`/tarefa/${tarefa.id}`" class="button">
+        <div class="button" @click="tarefaClicada">
           <span class="icon is-small">
             <i class="fas fa-pencil-alt"></i>
           </span>
-        </router-link>
+        </div>
         <button class="button ml-2 is-danger" @click="excluir(tarefa.id)">
           <span class="icon is-small">
             <i class="fas fa-trash"></i>
@@ -38,6 +38,7 @@ import { TipoNotificacao } from "@/interfaces/INotificacao";
 
 export default defineComponent({
   name: "TarefaVue",
+  emits: ['aoTarefaClicada'],
   data() {
     return {
       nomeDoProjeto: "",
@@ -46,7 +47,7 @@ export default defineComponent({
   },
   mounted() {
     if (this.projeto) {
-      const projeto = this.store.state.projetos.find(
+      const projeto = this.store.state.projeto.projetos.find(
         (proj) => proj.id == this.projeto.id
       );
       this.nomeDoProjeto = projeto?.nome || "";
@@ -62,6 +63,9 @@ export default defineComponent({
         );
       });
     },
+    tarefaClicada (): void{
+      this.$emit('aoTarefaClicada', this.tarefa)
+    }
   },
   components: {
     Cronometro,

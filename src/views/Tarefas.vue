@@ -1,8 +1,63 @@
 <template>
   <Formulario @aoSalvarTarefa="salvarTarefa" />
   <div class="lista">
-    <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" />
+    <Tarefa
+      v-for="(tarefa, index) in tarefas"
+      :key="index"
+      :tarefa="tarefa"
+      @aoTarefaClicada="selecionarTarefa"
+    />
     <Box v-if="listEmpty"> Nenhuma tarefa iniciada </Box>
+    <div
+      class="modal"
+      :class="{ 'is-active': tarefaSelecionada }"
+      v-if="tarefaSelecionada"
+    >
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Editar Tarefa</p>
+          <button
+            @click="fecharModal"
+            class="delete"
+            aria-label="close"
+          ></button>
+        </header>
+        <section class="modal-card-body">
+          <div
+            class="column"
+            role="form"
+            aria-label="Formulário para criação de uma nova tarefa"
+          >
+            <input
+              v-model="tarefaSelecionada.descricao"
+              type="text"
+              class="input"
+              placeholder="Qual tarefa você deseja iniciar?"
+            />
+          </div>
+          <div class="column">
+            <div class="select">
+              <select v-model="tarefaSelecionada.projeto.id">
+                <option
+                  :value="projeto.id"
+                  v-for="projeto in projetos"
+                  :key="projeto.id"
+                >
+                  {{ projeto.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button @click="alterarTarefa" class="button is-success">
+            Salvar
+          </button>
+          <button @click="fecharModal" class="button">Cancelar</button>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -16,6 +71,7 @@ import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import notificador from "@/hooks/notificador";
 import {
+  ALTERAR_TAREFA,
   CADASTRAR_TAREFA,
   OBTER_PROJETOS,
   OBTER_TAREFAS,
@@ -29,7 +85,9 @@ export default defineComponent({
     Box,
   },
   data() {
-    return {};
+    return {
+      tarefaSelecionada: null as ITarefa | null,
+    };
   },
   computed: {
     listEmpty(): boolean {
@@ -46,6 +104,23 @@ export default defineComponent({
         );
       });
     },
+    alterarTarefa() {
+      this.store.dispatch(ALTERAR_TAREFA, this.tarefaSelecionada).then(() => {
+        this.notificar(
+          TipoNotificacao.SUCESSO,
+          "Excelente!",
+          "Tarefa salva com sucesso."
+        );
+        this.fecharModal();
+      });
+    },
+    selecionarTarefa(tarefa: ITarefa) {
+      this.tarefaSelecionada = tarefa;
+    },
+    fecharModal() {
+      document.location.reload();
+      this.tarefaSelecionada = null;
+    },
   },
   setup() {
     const store = useStore();
@@ -54,7 +129,8 @@ export default defineComponent({
     store.dispatch(OBTER_TAREFAS);
 
     return {
-      tarefas: computed(() => store.state.tarefas),
+      projetos: computed(() => store.state.projeto.projetos),
+      tarefas: computed(() => store.state.tarefa.tarefas),
       store,
       notificar,
     };
