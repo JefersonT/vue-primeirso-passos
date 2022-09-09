@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-model -->
 <template>
   <Formulario @aoSalvarTarefa="salvarTarefa" />
   <div class="lista">
@@ -21,56 +22,43 @@
       @aoTarefaClicada="selecionarTarefa"
     />
     <Box v-if="listEmpty"> Nenhuma tarefa iniciada </Box>
-    <div
-      class="modal"
-      :class="{ 'is-active': tarefaSelecionada }"
-      v-if="tarefaSelecionada"
-    >
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Editar Tarefa</p>
-          <button
-            @click="fecharModal"
-            class="delete"
-            aria-label="close"
-          ></button>
-        </header>
-        <section class="modal-card-body">
-          <div
-            class="column"
-            role="form"
-            aria-label="Formulário para criação de uma nova tarefa"
-          >
-            <input
-              v-model="tarefaSelecionada.descricao"
-              type="text"
-              class="input"
-              placeholder="Qual tarefa você deseja iniciar?"
-            />
+    <modal :mostrar="tarefaSelecionada != null" v-if="tarefaSelecionada">
+      <template v-slot:head>
+        <p class="modal-card-title">Editar Tarefa</p>
+        <button @click="fecharModal" class="delete" aria-label="close"></button>
+      </template>
+      <template v-slot:body>
+        <div
+          class="column"
+          role="form"
+          aria-label="Formulário para criação de uma nova tarefa"
+        >
+          <input
+            v-model="tarefaSelecionada.descricao"
+            type="text"
+            class="input"
+            placeholder="Qual tarefa você deseja iniciar?"
+          />
+        </div>
+        <div class="column">
+          <div class="select">
+            <select v-model="tarefaSelecionada.projeto.id">
+              <option
+                :value="projeto.id"
+                v-for="projeto in projetos"
+                :key="projeto.id"
+              >
+                {{ projeto.nome }}
+              </option>
+            </select>
           </div>
-          <div class="column">
-            <div class="select">
-              <select v-model="tarefaSelecionada.projeto.id">
-                <option
-                  :value="projeto.id"
-                  v-for="projeto in projetos"
-                  :key="projeto.id"
-                >
-                  {{ projeto.nome }}
-                </option>
-              </select>
-            </div>
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button @click="alterarTarefa" class="button is-success">
-            Salvar
-          </button>
-          <button @click="fecharModal" class="button">Cancelar</button>
-        </footer>
-      </div>
-    </div>
+        </div>
+      </template>
+      <template v-slot:foot>
+        <button @click="alterarTarefa" class="button is-success">Salvar</button>
+        <button @click="fecharModal" class="button">Cancelar</button>
+      </template>
+    </modal>
   </div>
 </template>
 
@@ -89,6 +77,7 @@ import {
   OBTER_PROJETOS,
   OBTER_TAREFAS,
 } from "@/store/tipo-acoes";
+import Modal from "@/components/Modal.vue";
 
 export default defineComponent({
   name: "App",
@@ -96,7 +85,8 @@ export default defineComponent({
     Formulario,
     Tarefa,
     Box,
-  },
+    Modal
+},
   data() {
     return {
       tarefaSelecionada: null as ITarefa | null,

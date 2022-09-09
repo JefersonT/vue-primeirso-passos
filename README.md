@@ -90,6 +90,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
        - Como reaproveitar código de uma forma mais coesa e legível.
      - Computed - debugging;
        - Como depurar código de propriedades computadas.
+
 ### Vue3: composition API e Vuex
 1. Hora da API
    - Configurar um mock de API Rest;
@@ -117,3 +118,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
      - Agora sim, reagindo a alterações no campo de busca, buscamos diretamente da API as tarefas que possuem determinada descrição.
    - Reatividade
      - Procurando mergulhos cada vez mais fundo, descobrimos uma das formas de observarmos alterações em variáveis específicas e como reagir a elas.
+5. Toques finais
+   - Componentes com slots;
+     - Utilizando os slots, conseguimos criar com facilidade componentes visuais que recebem seu conteúdo interno de forma dinâmica.
+   - Named slots;
+     - Aprendemos a dividir os slots e nomeá-los, diminuindo o acoplamento entre o conteúdo dinâmico e nossa estrutura de html e css.
