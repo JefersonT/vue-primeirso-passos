@@ -29,7 +29,7 @@
 <script lang="ts">
 import ITarefa from "@/interfaces/ITarefa";
 import { useStore } from "@/store";
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import Cronometro from "./Cronometro.vue";
 import BoxVue from "./Box.vue";
 import { REMOVER_TAREFA } from "@/store/tipo-acoes";
@@ -39,34 +39,6 @@ import { TipoNotificacao } from "@/interfaces/INotificacao";
 export default defineComponent({
   name: "TarefaVue",
   emits: ['aoTarefaClicada'],
-  data() {
-    return {
-      nomeDoProjeto: "",
-      projeto: this.tarefa.projeto,
-    };
-  },
-  mounted() {
-    if (this.projeto) {
-      const projeto = this.store.state.projeto.projetos.find(
-        (proj) => proj.id == this.projeto.id
-      );
-      this.nomeDoProjeto = projeto?.nome || "";
-    }
-  },
-  methods: {
-    excluir(id: string) {
-      this.store.dispatch(REMOVER_TAREFA, id).then(() => {
-        this.notificar(
-          TipoNotificacao.SUCESSO,
-          "Excelente!",
-          "Tarefa removida com sucesso."
-        );
-      });
-    },
-    tarefaClicada (): void{
-      this.$emit('aoTarefaClicada', this.tarefa)
-    }
-  },
   components: {
     Cronometro,
     BoxVue,
@@ -77,12 +49,38 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props, { emit }) {
     const store = useStore();
-    const { notificar } = notificador();
+    const { notificar } = notificador()
+    const nomeDoProjeto = ref("")
+    const projeto = ref(props.tarefa.projeto)
+
+    if (projeto.value) {
+      const projet = store.state.projeto.projetos.find(
+        (proj) => proj.id == projeto.value.id
+      );
+      nomeDoProjeto.value = projet?.nome || "";
+    }
+
+
+    const excluir = (id: string) => {
+      store.dispatch(REMOVER_TAREFA, id).then(() => {
+        notificar(
+          TipoNotificacao.SUCESSO,
+          "Excelente!",
+          "Tarefa removida com sucesso."
+        );
+      });
+    }
+    
+    const tarefaClicada = (): void => {
+      emit('aoTarefaClicada', props.tarefa)
+    }
+
     return {
-      store,
-      notificar,
+      nomeDoProjeto,
+      tarefaClicada,
+      excluir
     };
   },
 });

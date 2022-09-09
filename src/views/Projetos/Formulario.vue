@@ -22,7 +22,8 @@ import useNotificador from "@/hooks/notificador";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import { useStore } from "@/store";
 import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from "@/store/tipo-acoes";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "FormularioVue",
@@ -31,50 +32,47 @@ export default defineComponent({
       type: String,
     },
   },
-  mounted() {
-    if (this.id) {
-      const projeto = this.store.state.projeto.projetos.find(
-        (proj) => proj.id == this.id
+  setup(props) {
+    const store = useStore();
+    const { notificar } = useNotificador();
+    const nomeDoProjeto = ref("")
+    const router = useRouter();
+
+    if (props.id) {
+      const projeto = store.state.projeto.projetos.find(
+        (proj) => proj.id == props.id
       );
-      this.nomeDoProjeto = projeto?.nome || "";
+      nomeDoProjeto.value = projeto?.nome || "";
     }
-  },
-  data() {
-    return {
-      nomeDoProjeto: "",
-    };
-  },
-  methods: {
-    salvar() {
-      if (this.id) {
-        this.store
+
+    const salvar = () => {
+      if (props.id) {
+        store
           .dispatch(ALTERAR_PROJETO, {
-            id: this.id,
-            nome: this.nomeDoProjeto,
+            id: props.id,
+            nome: nomeDoProjeto.value,
           })
-          .then(() => this.lidarComSucesso());
+          .then(() => lidarComSucesso());
       } else {
-        this.store
-          .dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
-          .then(() => this.lidarComSucesso());
+        store
+          .dispatch(CADASTRAR_PROJETO, nomeDoProjeto.value)
+          .then(() => lidarComSucesso());
       }
-    },
-    lidarComSucesso() {
-      this.nomeDoProjeto = "";
-      this.notificar(
+    }
+
+    const lidarComSucesso = () => {
+      nomeDoProjeto.value = "";
+      notificar(
         TipoNotificacao.SUCESSO,
         "Excelente!",
         "Projeto salvo com sucesso."
       );
-      this.$router.push("/projetos");
-    },
-  },
-  setup() {
-    const store = useStore();
-    const { notificar } = useNotificador();
+      router.push("/projetos");
+    }
+    
     return {
-      store,
-      notificar,
+      nomeDoProjeto,
+      salvar
     };
   },
 });
