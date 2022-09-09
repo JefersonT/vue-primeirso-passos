@@ -105,3 +105,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
      - Sempre que identificamos um problema conhecido, como a store com código demais, precisamos ter uma arquitetura alternativa para que o projeto possa ser mantido muito muito mais tempo antes de virar um legado difícil de trabalhar. 
    - Promises e async/await;
      - Vimos na atividade de alternativas que temos outra forma de lidar com métodos assíncronos.
+3. Composition API
+   - Configurar o componente;
+     - Utilizando o método setup, conseguimos escrever tudo o que um componente precisa. Seja o seu estado, reagir ao ciclo de vida ou mesmo propriedades computadas.
+   - Parâmetros do método setup;
+     - Conseguimos acessar as props e o contexto do componente, mesmo utilizando a Composition API.
