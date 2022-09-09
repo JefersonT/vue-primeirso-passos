@@ -1,6 +1,19 @@
 <template>
   <Formulario @aoSalvarTarefa="salvarTarefa" />
   <div class="lista">
+    <div class="field">
+      <p class="control has-icons-left">
+        <input
+          class="input"
+          type="text"
+          placeholder="Filtrar"
+          v-model="filter"
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </p>
+    </div>
     <Tarefa
       v-for="(tarefa, index) in tarefas"
       :key="index"
@@ -62,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref, watchEffect } from "vue";
 import Formulario from "../components/Formulario.vue";
 import Tarefa from "../components/Tarefa.vue";
 import ITarefa from "../interfaces/ITarefa";
@@ -127,12 +140,18 @@ export default defineComponent({
     const { notificar } = notificador();
     store.dispatch(OBTER_PROJETOS);
     store.dispatch(OBTER_TAREFAS);
+    const filter = ref("");
+    const projetos = computed(() => store.state.projeto.projetos);
+    watchEffect(() => {
+      store.dispatch(OBTER_TAREFAS, filter.value)
+    });
 
     return {
-      projetos: computed(() => store.state.projeto.projetos),
+      projetos,
       tarefas: computed(() => store.state.tarefa.tarefas),
       store,
       notificar,
+      filter,
     };
   },
 });

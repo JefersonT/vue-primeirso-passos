@@ -110,3 +110,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
      - Utilizando o método setup, conseguimos escrever tudo o que um componente precisa. Seja o seu estado, reagir ao ciclo de vida ou mesmo propriedades computadas.
    - Parâmetros do método setup;
      - Conseguimos acessar as props e o contexto do componente, mesmo utilizando a Composition API.
+4. Reatividade
+   - Computed como filtro;
+     - Utilizando o hook computed, conseguimos filtrar em memória as tarefas que continham o texto digitado pelo usuário.
+   - Watch e WatchEffect;
+     - Agora sim, reagindo a alterações no campo de busca, buscamos diretamente da API as tarefas que possuem determinada descrição.
+   - Reatividade
+     - Procurando mergulhos cada vez mais fundo, descobrimos uma das formas de observarmos alterações em variáveis específicas e como reagir a elas.
